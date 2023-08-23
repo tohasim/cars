@@ -1,9 +1,6 @@
 package dat3.cars.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,9 +19,13 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String brand, model;
+    @Column(name = "car_brand", length = 50, nullable = false)
+    private String brand;
+    @Column(name = "car_model", length = 60, nullable = false)
+    private String model;
+    @Column(name = "rental_price_day")
     private double pricePrDay;
+    @Column(name = "max_discount")
     private int bestDiscount;
 
     @CreationTimestamp

@@ -1,5 +1,6 @@
 package dat3.cars.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -19,20 +20,19 @@ public class Member {
     @Id
     private String username;
 
-    private String
-            email,
-            password,
-            firstName,
-            lastName,
-            street,
-            zip,
-            city;
+    @Column(nullable = false)
+    private String email;
+    @Column(nullable = false)
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String street;
+    private String zip;
+    private String city;
 
-    private int
-            ranking;
+    private int ranking;
 
-    private boolean
-            approved;
+    private boolean approved;
 
 
     @CreationTimestamp
