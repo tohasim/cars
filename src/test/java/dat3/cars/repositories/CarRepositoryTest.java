@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,8 +34,15 @@ class CarRepositoryTest {
     }
 
     @Test
-    public void deleteAll(){
+    public void testFindCarsByBrandLike(){
+        List<Car> cars = carRepository.findCarsByBrandLike("%brand%");
+        assertEquals(3, cars.size());
+    }
+
+    @Test
+    public void testDeleteAll(){
         carRepository.deleteAll();
         assertEquals(0, carRepository.count());
     }
+
 }
