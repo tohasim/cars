@@ -34,8 +34,14 @@ class MemberRepositoryTest {
     }
 
     @Test
-    public void deleteAll(){
+    public void testDeleteAll(){
         memberRepository.deleteAll();
         assertEquals(0, memberRepository.count());
+    }
+
+    @Test
+    public void testFindByFirstName(){
+        Member member = memberRepository.findByFirstName("firstName1");
+        assertEquals("firstName1", member.getFirstName());
     }
 }
