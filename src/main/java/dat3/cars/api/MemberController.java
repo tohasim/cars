@@ -24,9 +24,11 @@ class MemberController {
         return memberService.getMembers(false);
     }
 
-    //Security ???
+    //Admin only
     @GetMapping(path = "/{username}")
-    MemberResponse getMemberById(@PathVariable String username) throws Exception {return null;}
+    MemberResponse getMemberById(@PathVariable String username) throws Exception {
+        return memberService.findById(username);
+    }
 
     //Anonymous
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
