@@ -18,13 +18,13 @@ class MemberController {
         this.memberService = memberService;
     }
 
-    // Admin only
+    //Admin only
     @GetMapping
     List<MemberResponse> getMembers(){
         return memberService.getMembers(false);
     }
 
-    // Admin only
+    //Admin only
     @GetMapping(path = "/{username}")
     MemberResponse getMemberById(@PathVariable String username){
         return memberService.findById(username);
@@ -36,19 +36,19 @@ class MemberController {
         return memberService.addMember(body);
     }
 
-    // Admin only since this could be done for any user
+    //Admin only since this could be done for any user
     @PutMapping("/{username}")
     ResponseEntity<Boolean> editMember(@RequestBody MemberRequest body, @PathVariable String username){
         return memberService.editMember(body, username);
     }
 
-    //Security ????
+    //Admin only
     @PatchMapping("/ranking/{username}/{value}")
     ResponseEntity<Boolean> setRankingForUser(@PathVariable String username, @PathVariable int value) {
         return memberService.setRanking(username, value);
     }
 
-    // Admin only since this could be done for any user
+    //Admin only since this could be done for any user
     @DeleteMapping("/{username}")
     void deleteMemberByUsername(@PathVariable String username) {
         memberService.deleteMember(username);

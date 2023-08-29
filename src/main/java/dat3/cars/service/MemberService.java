@@ -63,13 +63,10 @@ public class MemberService {
     }
 
     public void deleteMember(String username) {
-        Member memberToDelete = memberRepository.findById(username).
-                orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));
-        memberRepository.delete(memberToDelete);
+        memberRepository.deleteById(username);
     }
 
     public ResponseEntity<Boolean> setRanking(String username, int value) {
-        //TODO: Make setRanking method
         Member member = memberRepository.findById(username).
                 orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));
         member.setRanking(value);
