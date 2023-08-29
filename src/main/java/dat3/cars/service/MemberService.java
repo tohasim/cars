@@ -59,7 +59,7 @@ public class MemberService {
     public MemberResponse findById(String username) {
         Member member = memberRepository.findById(username).
                 orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));
-        return new MemberResponse(member, false);
+        return new MemberResponse(member, true);
     }
 
     public void deleteMember(String username) {
@@ -70,6 +70,10 @@ public class MemberService {
 
     public ResponseEntity<Boolean> setRanking(String username, int value) {
         //TODO: Make setRanking method
+        Member member = memberRepository.findById(username).
+                orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));
+        member.setRanking(value);
+        editMember(new MemberRequest(member), username);
         return ResponseEntity.ok(true);
     }
 }
