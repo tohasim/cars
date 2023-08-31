@@ -24,6 +24,7 @@ A build server is a server on which you build your application in order to check
 If anything fails, the developers should be notified. GitHub actions does this. 
 
 ## Explain maven, relevant parts in maven, and how maven is used in our CI setup. Explain where maven is used by your GitHub Actions Script(s)
-
+Maven is what we use to automate our building process, our .yml file runs "mvn clean install" which runs all the previous steps in the maven lifecycle
 
 ## Understand and chose cloud service models (IaaS, PaaS, SaaS, DBaaS)for your projects -> Just explain what you have used for this handin
+I used IaaS for my database implementation, as I am using the Linux VM with a MySQL Docker container solution. Other than that I am using PaaS to deploy my REST API application.
