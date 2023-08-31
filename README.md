@@ -1,24 +1,29 @@
 # READ ME
-## The idea with, and reasons for why to use, a ORM-mapper
-A ORM mapper is a great way to automize and simplify your code, while programming object oriented applications with relational databases
+## What are the benefits of using a RESTful API
+- It uses the standard HTTP methods (GET, POST, PUT, DELETE, etc)
+- Statelessness, thus it is easily scalable
+- Can make use of caching to free up server resources
 
-## The meaning of the terms JPA, Hibernate and Spring Data JPA and how they are connected
-JPA is a specification, which hibernate is an implementation of. Spring Data JPA is an abstraction if that implementation, which helps us avoid a lot of boilerplate code
+## What is JSON, and why does JSON fit so well with REST?
+JSON is a text-based way to interpret data. \
+Since it is text-based it can be understood by any framework/language, which makes it so good for REST APIs.
+## How you have designed simple CRUD endpoints using spring boot and DTOs to separate api from data  -> Focus on your use of DTO's
+I have created Request and Response DTOs to manipulate my data from the repository to the API. 
+## What is the advantage of using using DTOs to separate api from data structure when designing rest endpoints
+Better control over which information is sent to the api.
 
-## How to create simple Java entities and map them to a database via the Spring Data API
-You create the Java class, which should have the @Entity and @Id annotations, and a zero argument constructor. From here you just implement the class as a JpaRepository.
+## Explain shortly the concept mocking in relation to software testing
+Mocking is needed when unit testing a class with dependencies to other classes. \
+By mocking these dependencies you can circumvent having to wait for a slow DB to start up, or just avoid having to get data from other classes.
 
-## How to control the mapping between individual fields in an Entity class and their matching columns in the database
-With the @Columns annotation you can control the parameters of the column in the DB
+## How did you mock database access in your tests, using an in-memory database and/or mockito → Refer to your code
+I used the @DataJpaTest annotation, which implies the use of an in-memory h2 database.
 
-## How to auto generate IDs, and how to ensure we are using  a specific database's preferred way of doing it (Auto Increment in our case for  MySQL)
-When you have annotated your @Id value, you can generate the value of it with @GeneratedValue and give the strategy = GenerationType.IDENTITY as a argument
+## Explain the concept Build Server and the role Github Actions play here
+A build server is a server on which you build your application in order to check that everything works as intended before the code goes live. \
+If anything fails, the developers should be notified. GitHub actions does this. 
 
-## How to use and define repositories and relevant query methods using Spring Data JPAs repository pattern
-Create an interface for the repository, and extend JpaRepository<Type, Id-type>. After this you can add more functionality, by adding more methods to the interface.
+## Explain maven, relevant parts in maven, and how maven is used in our CI setup. Explain where maven is used by your GitHub Actions Script(s)
 
-## How to write simple "integration" tests, using H2 as a mock-database instead of MySQL
-Add a test file under the test folder, and add the @DataJpaTest annotation to the class, add an @Autowired annotation, and then add your @Test's
 
-## How to add (dev) connection details for you local MySQL database
-As environment variables under the "Edit configurations" tab.
+## Understand and chose cloud service models (IaaS, PaaS, SaaS, DBaaS)for your projects -> Just explain what you have used for this handin

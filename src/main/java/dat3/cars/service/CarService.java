@@ -30,9 +30,13 @@ public class CarService {
     }
 
     public CarResponse findById(int id) {
-        Car car = carRepository.findById(id).
+        Car car = getCarById(id);
+        return new CarResponse(car, true);
+    }
+
+    private Car getCarById(int id) {
+        return carRepository.findById(id).
                 orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car not found"));
-        return new CarResponse(car, false);
     }
 
     public CarResponse addCar(CarRequest body) {
@@ -42,9 +46,7 @@ public class CarService {
     }
 
     public CarResponse editCar(CarRequest body, int id) {
-        Car car = carRepository.findById(id).orElseThrow(
-                ()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,  "Car not found"
-                ));
+        Car car = getCarById(id);
         car.setBrand(body.getBrand());
         car.setModel(body.getModel());
         car.setPricePrDay(body.getPricePrDay());
@@ -54,9 +56,7 @@ public class CarService {
     }
 
     public ResponseEntity<Boolean> setBestDiscount(int id, int value) {
-        Car car = carRepository.findById(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car not found")
-        );
+        Car car = getCarById(id);
         car.setBestDiscount(value);
         editCar(new CarRequest(car), id);
         return ResponseEntity.ok(true);
