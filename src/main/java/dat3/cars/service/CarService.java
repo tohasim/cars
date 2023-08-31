@@ -63,7 +63,8 @@ public class CarService {
     }
 
     public ResponseEntity<Boolean> deleteCar(int id) {
-        carRepository.deleteById(id);
+        Car car = getCarById(id);
+        carRepository.delete(car);
         return ResponseEntity.ok(true);
     }
 }
