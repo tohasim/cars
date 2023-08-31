@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 //It's really IMPORTANT that you understand the purpose of this annotation
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CarResponse {
+    private Integer id;
     private String brand;
     private String model;
     private Double pricePrDay;
@@ -29,6 +30,7 @@ public class CarResponse {
         this.model = c.getModel();
         this.pricePrDay = c.getPricePrDay();
         if (includeAll) {
+            this.id = c.getId();
             this.bestDiscount = c.getBestDiscount();
             this.created = c.getCreated();
             this.edited = c.getEdited();
