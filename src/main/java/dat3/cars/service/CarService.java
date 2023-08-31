@@ -36,7 +36,7 @@ public class CarService {
 
     private Car getCarById(int id) {
         return carRepository.findById(id).
-                orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car not found"));
+                orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found"));
     }
 
     public CarResponse addCar(CarRequest body) {
