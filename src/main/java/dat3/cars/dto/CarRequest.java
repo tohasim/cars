@@ -2,12 +2,12 @@ package dat3.cars.dto;
 
 
 import dat3.cars.entity.Car;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class CarRequest {
     private String brand;
