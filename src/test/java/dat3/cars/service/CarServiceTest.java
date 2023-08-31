@@ -21,11 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CarServiceTest {
     @Autowired
     CarRepository carRepository;
-
     CarService carService;
-
     Car c1, c2, c3;
-
     @BeforeEach
     void setUp(){
         c1 = carRepository.save(new Car("brand1", "model1", 10, 1));
@@ -33,27 +30,23 @@ public class CarServiceTest {
         c3 = carRepository.save(new Car("brand3", "model3", 30, 3));
         carService = new CarService(carRepository);
     }
-
     @Test
     void testGetCarsAllDetails(){
         List<CarResponse> carResponseList = carService.getCars(true);
         assertEquals(3, carResponseList.size());
         assertNotNull(carResponseList.get(0).getBestDiscount());
     }
-
     @Test
     void testGetCarsNoDetails() {
         List<CarResponse> carResponseList = carService.getCars(false);
         assertEquals(3, carResponseList.size());
         assertNull(carResponseList.get(0).getBestDiscount());
     }
-
     @Test
     void testFindByIdFound(){
         CarResponse response = carService.findById(1);
         assertEquals("model1", response.getModel());
     }
-
     @Test
     void testFindByIdNotFound() {
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
@@ -61,7 +54,6 @@ public class CarServiceTest {
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
 
     }
-
     @Test
     void testAddCar() {
         CarRequest request = CarRequest.builder().
@@ -74,7 +66,6 @@ public class CarServiceTest {
         assertEquals("addedBrand", response.getBrand());
         assertTrue(carRepository.existsById(4));
     }
-
     @Test
     void testEditCar() {
         LocalDateTime originalEdited = carService.findById(1).getEdited();
@@ -89,7 +80,6 @@ public class CarServiceTest {
         assertEquals(1, response.getBestDiscount());
         assertTrue(originalEdited.isBefore(response.getEdited()));
     }
-
     @Test
     void testEditCarNotFound() {
         CarRequest request = new CarRequest();
@@ -98,20 +88,21 @@ public class CarServiceTest {
         );
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
-
     @Test
     void testSetBestDiscountForCar() {
         carService.setBestDiscount(1, 10);
         CarResponse response = carService.findById(1);
         assertEquals(10, response.getBestDiscount());
     }
-
     @Test
     void testDeleteCarById() {
-        carService.deleteCar(1);
-        assertFalse(carRepository.existsById(1));
+        List<CarResponse> responses = carService.getCars(true);
+        int initialSize = responses.size();
+        CarResponse response = responses.get(0);
+        carService.deleteCar(response.getId());
+        assertFalse(carRepository.existsById(response.getId()));
+        assertEquals(initialSize - 1, carRepository.count());
     }
-
     @Test
     void testDeleteCar_ThatDontExist() {
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
