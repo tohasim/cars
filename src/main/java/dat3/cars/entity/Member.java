@@ -3,6 +3,7 @@ package dat3.cars.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Getter
@@ -33,6 +35,9 @@ public class Member extends AdminDetails{
     private int ranking;
 
     private boolean approved;
+
+    @OneToMany(mappedBy = "member")
+    List<Reservation> reservations;
 
     public Member(String user, String password, String email, String firstName,
                   String lastName, String street, String city, String zip) {

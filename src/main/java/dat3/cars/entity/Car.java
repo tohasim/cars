@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Getter
@@ -28,6 +29,9 @@ public class Car extends AdminDetails {
     private double pricePrDay;
     @Column(name = "max_discount")
     private int bestDiscount;
+
+    @OneToMany(mappedBy = "car")
+    List<Reservation> reservations;
 
     public Car(String brand, String model, double pricePrDay, int bestDiscount) {
         this.brand = brand;

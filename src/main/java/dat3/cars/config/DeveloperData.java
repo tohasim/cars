@@ -2,12 +2,15 @@ package dat3.cars.config;
 
 import dat3.cars.entity.Car;
 import dat3.cars.entity.Member;
+import dat3.cars.entity.Reservation;
 import dat3.cars.repositories.CarRepository;
 import dat3.cars.repositories.MemberRepository;
+import dat3.cars.repositories.ReservationRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +19,12 @@ public class DeveloperData implements ApplicationRunner {
     final CarRepository carRepository;
     final MemberRepository memberRepository;
 
-    public DeveloperData(CarRepository carRepository, MemberRepository memberRepository) {
+    final ReservationRepository reservationRepository;
+
+    public DeveloperData(CarRepository carRepository, MemberRepository memberRepository, ReservationRepository reservationRepository) {
         this.carRepository = carRepository;
         this.memberRepository = memberRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     @Override
@@ -82,5 +88,60 @@ public class DeveloperData implements ApplicationRunner {
         members.add(new Member("davidmiller", "12345678", "david.miller@example.com", "David", "Miller", "222 Birch St", "Hometown", "24680"));
         members.add(new Member("sophiadavis", "sophia2023", "sophia.davis@example.com", "Sophia", "Davis", "333 Cedar St", "Metropolis", "86420"));
         memberRepository.saveAll(members);
+
+        // Assuming you have at least 10 members and cars in your respective lists
+        // Populate members and cars lists with actual members and cars objects
+
+        List<Reservation> reservations = new ArrayList<>();
+
+        // Hardcoded members and cars for reservations
+        Member member1 = members.get(0); // Change the index accordingly
+        Car car1 = cars.get(1);          // Change the index accordingly
+
+        Member member2 = members.get(1); // Change the index accordingly
+        Car car2 = cars.get(2);          // Change the index accordingly
+
+        Member member3 = members.get(2); // Change the index accordingly
+        Car car3 = cars.get(1);          // Change the index accordingly
+
+        Member member4 = members.get(3); // Change the index accordingly
+        Car car4 = cars.get(13);          // Change the index accordingly
+
+        Member member5 = members.get(4); // Change the index accordingly
+        Car car5 = cars.get(5);          // Change the index accordingly
+
+        Member member6 = members.get(5); // Change the index accordingly
+        Car car6 = cars.get(4);          // Change the index accordingly
+
+        Member member7 = members.get(6); // Change the index accordingly
+        Car car7 = cars.get(5);          // Change the index accordingly
+
+        Member member8 = members.get(0); // Change the index accordingly
+        Car car8 = cars.get(10);          // Change the index accordingly
+
+        Member member9 = members.get(1); // Change the index accordingly
+        Car car9 = cars.get(11);          // Change the index accordingly
+
+        Member member10 = members.get(1); // Change the index accordingly
+        Car car10 = cars.get(29);          // Change the index accordingly
+
+        LocalDate reservationDate = LocalDate.now(); // You can set the reservation date as needed
+        LocalDate rentalDate = LocalDate.now();      // You can set the rental date as needed
+
+        // Create 10 reservations with different members and cars
+        reservations.add(new Reservation(car1, member1, reservationDate, rentalDate));
+        reservations.add(new Reservation(car2, member2, reservationDate, rentalDate));
+        reservations.add(new Reservation(car3, member3, reservationDate, rentalDate));
+        reservations.add(new Reservation(car4, member4, reservationDate, rentalDate));
+        reservations.add(new Reservation(car5, member5, reservationDate, rentalDate));
+        reservations.add(new Reservation(car6, member6, reservationDate, rentalDate));
+        reservations.add(new Reservation(car7, member7, reservationDate, rentalDate));
+        reservations.add(new Reservation(car8, member8, reservationDate, rentalDate));
+        reservations.add(new Reservation(car9, member9, reservationDate, rentalDate));
+        reservations.add(new Reservation(car10, member10, reservationDate, rentalDate));
+
+        // Now, the 'reservations' list contains 10 reservations with hardcoded values for cars and members.
+
+        reservationRepository.saveAll(reservations);
     }
 }
