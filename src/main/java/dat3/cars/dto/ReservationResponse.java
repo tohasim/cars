@@ -27,7 +27,6 @@ public class ReservationResponse {
     public ReservationResponse(Reservation r){
         this.id = r.getId();
         this.reservationDate = r.getReservationDate();
-        this.rentalDate = r.getRentalDate();
         this.car = r.getCar();
         this.member = r.getMember();
     }

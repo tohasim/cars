@@ -20,17 +20,12 @@ public class ReservationRequest {
     @JsonFormat(pattern = "yyyy-mm-dd")
     private LocalDate reservationDate, rentalDate;
 
-    private Car car;
-    private Member member;
-
-    public static Reservation getReservationEntity(ReservationRequest r){
-        return new Reservation(r.car, r.member, r.reservationDate, r.rentalDate);
-    }
+    int carId;
+    String username;
 
     public ReservationRequest(Reservation r){
-        this.car = r.getCar();
-        this.member = r.getMember();
+        this.carId = r.getCar().getId();
+        this.username = r.getMember().getUsername();
         this.reservationDate = r.getReservationDate();
-        this.rentalDate = r.getRentalDate();
     }
 }
