@@ -89,56 +89,52 @@ public class DeveloperData implements ApplicationRunner {
         members.add(new Member("sophiadavis", "sophia2023", "sophia.davis@example.com", "Sophia", "Davis", "333 Cedar St", "Metropolis", "86420"));
         memberRepository.saveAll(members);
 
-        // Assuming you have at least 10 members and cars in your respective lists
-        // Populate members and cars lists with actual members and cars objects
-
         List<Reservation> reservations = new ArrayList<>();
 
         // Hardcoded members and cars for reservations
-        Member member1 = members.get(0); // Change the index accordingly
-        Car car1 = cars.get(1);          // Change the index accordingly
+        Member member1 = members.get(0);
+        Car car1 = cars.get(1);
 
-        Member member2 = members.get(1); // Change the index accordingly
-        Car car2 = cars.get(2);          // Change the index accordingly
+        Member member2 = members.get(1);
+        Car car2 = cars.get(2);
 
-        Member member3 = members.get(2); // Change the index accordingly
-        Car car3 = cars.get(1);          // Change the index accordingly
+        Member member3 = members.get(2);
+        Car car3 = cars.get(1);
 
-        Member member4 = members.get(3); // Change the index accordingly
-        Car car4 = cars.get(13);          // Change the index accordingly
+        Member member4 = members.get(3);
+        Car car4 = cars.get(13);
 
-        Member member5 = members.get(4); // Change the index accordingly
-        Car car5 = cars.get(5);          // Change the index accordingly
+        Member member5 = members.get(4);
+        Car car5 = cars.get(5);
 
-        Member member6 = members.get(5); // Change the index accordingly
-        Car car6 = cars.get(4);          // Change the index accordingly
+        Member member6 = members.get(5);
+        Car car6 = cars.get(4);
 
-        Member member7 = members.get(6); // Change the index accordingly
-        Car car7 = cars.get(5);          // Change the index accordingly
+        Member member7 = members.get(6);
+        Car car7 = cars.get(5);
 
-        Member member8 = members.get(0); // Change the index accordingly
-        Car car8 = cars.get(10);          // Change the index accordingly
+        Member member8 = members.get(0);
+        Car car8 = cars.get(10);
 
-        Member member9 = members.get(1); // Change the index accordingly
-        Car car9 = cars.get(11);          // Change the index accordingly
+        Member member9 = members.get(1);
+        Car car9 = cars.get(11);
 
-        Member member10 = members.get(1); // Change the index accordingly
-        Car car10 = cars.get(29);          // Change the index accordingly
+        Member member10 = members.get(1);
+        Car car10 = cars.get(29);
 
-        LocalDate reservationDate = LocalDate.now(); // You can set the reservation date as needed
-        LocalDate rentalDate = LocalDate.now();      // You can set the rental date as needed
+        LocalDate reservationDate = LocalDate.now().plusDays(2); // You can set the reservation date as needed
 
         // Create 10 reservations with different members and cars
-        reservations.add(new Reservation(car1, member1, reservationDate, rentalDate));
-        reservations.add(new Reservation(car2, member2, reservationDate, rentalDate));
-        reservations.add(new Reservation(car3, member3, reservationDate, rentalDate));
-        reservations.add(new Reservation(car4, member4, reservationDate, rentalDate));
-        reservations.add(new Reservation(car5, member5, reservationDate, rentalDate));
-        reservations.add(new Reservation(car6, member6, reservationDate, rentalDate));
-        reservations.add(new Reservation(car7, member7, reservationDate, rentalDate));
-        reservations.add(new Reservation(car8, member8, reservationDate, rentalDate));
-        reservations.add(new Reservation(car9, member9, reservationDate, rentalDate));
-        reservations.add(new Reservation(car10, member10, reservationDate, rentalDate));
+        reservations.add(new Reservation(car1, member1, reservationDate));
+        reservations.add(new Reservation(car2, member2, reservationDate));
+        reservations.add(new Reservation(car3, member3, reservationDate));
+        reservations.add(new Reservation(car4, member4, reservationDate));
+        reservations.add(new Reservation(car5, member5, reservationDate));
+        reservations.add(new Reservation(car6, member6, reservationDate));
+        reservations.add(new Reservation(car7, member7, reservationDate));
+        reservations.add(new Reservation(car8, member8, reservationDate));
+        reservations.add(new Reservation(car9, member9, reservationDate));
+        reservations.add(new Reservation(car10, member10, reservationDate));
 
         // Now, the 'reservations' list contains 10 reservations with hardcoded values for cars and members.
 

@@ -1,9 +1,6 @@
 package dat3.cars.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,7 +34,7 @@ public class Member extends AdminDetails{
 
     private boolean approved;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     List<Reservation> reservations;
 
     public Member(String user, String password, String email, String firstName,
@@ -49,6 +47,12 @@ public class Member extends AdminDetails{
         this.street = street;
         this.city = city;
         this.zip = zip;
+    }
+
+    public void addReservation(Reservation reservation){
+        if (reservations == null)
+            reservations = new ArrayList<>();
+        reservations.add(reservation);
     }
 
 }

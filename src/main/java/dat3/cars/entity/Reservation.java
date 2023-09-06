@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDate;
 
@@ -13,24 +14,28 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Reservation {
+public class Reservation extends AdminDetails{
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
+    @Column(nullable = false)
     private Car car;
 
     @ManyToOne
+    @Column(nullable = false)
     private Member member;
 
-    private LocalDate reservationDate, rentalDate;
+    @Column(nullable = false)
+    private LocalDate reservationDate;
 
-    public Reservation(Car car, Member member, LocalDate reservationDate, LocalDate rentalDate) {
+    public Reservation(Car car, Member member, LocalDate reservationDate) {
         this.car = car;
         this.member = member;
         this.reservationDate = reservationDate;
-        this.rentalDate = rentalDate;
+        car.addReservation(this);
+        member.addReservation(this);
     }
 
 }

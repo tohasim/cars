@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,14 +31,20 @@ public class Car extends AdminDetails {
     @Column(name = "max_discount")
     private int bestDiscount;
 
-    @OneToMany(mappedBy = "car")
-    List<Reservation> reservations;
+    @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
+    private List<Reservation> reservations;
 
     public Car(String brand, String model, double pricePrDay, int bestDiscount) {
         this.brand = brand;
         this.model = model;
         this.pricePrDay = pricePrDay;
         this.bestDiscount = bestDiscount;
+    }
+
+    public void addReservation(Reservation reservation){
+        if (reservations == null)
+            reservations = new ArrayList<>();
+        reservations.add(reservation);
     }
 
 }
