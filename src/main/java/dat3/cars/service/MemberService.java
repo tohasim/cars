@@ -72,7 +72,7 @@ public class MemberService {
         return ResponseEntity.ok(true);
     }
 
-    private Member getMemberByUsername(String username){
+    public Member getMemberByUsername(String username){
         return memberRepository.findById(username).
                 orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Member with this username does not exist"));
     }

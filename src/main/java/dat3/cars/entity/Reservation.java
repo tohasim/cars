@@ -20,11 +20,9 @@ public class Reservation extends AdminDetails{
     private int id;
 
     @ManyToOne
-    @Column(nullable = false)
     private Car car;
 
     @ManyToOne
-    @Column(nullable = false)
     private Member member;
 
     @Column(nullable = false)

@@ -12,23 +12,20 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationResponse {
-    private Integer id;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
-    private LocalDate reservationDate, rentalDate;
+    int id;
+    int carId;
+    String brand;
+    String model;
+    //@JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
+    LocalDate reservationDate;
 
-    private Car car;
-    private Member member;
-
-    public ReservationResponse(Reservation r){
-        this.id = r.getId();
-        this.reservationDate = r.getReservationDate();
-        this.car = r.getCar();
-        this.member = r.getMember();
+    public ReservationResponse(Reservation reservation) {
+        this.id = reservation.getId();
+        this.carId = reservation.getCar().getId();
+        this.brand = reservation.getCar().getBrand();
+        this.model = reservation.getCar().getModel();
+        this.reservationDate = reservation.getReservationDate();
     }
-
 }
