@@ -87,6 +87,7 @@ public class DeveloperData implements ApplicationRunner {
         members.add(new Member("evebrown", "welcome123", "eve.brown@example.com", "Eve", "Brown", "111 Pine St", "Pleasantville", "13579"));
         members.add(new Member("davidmiller", "12345678", "david.miller@example.com", "David", "Miller", "222 Birch St", "Hometown", "24680"));
         members.add(new Member("sophiadavis", "sophia2023", "sophia.davis@example.com", "Sophia", "Davis", "333 Cedar St", "Metropolis", "86420"));
+        members.add(new Member("noReservation", "test", "test", "Sophia", "Davis", "333 Cedar St", "Metropolis", "86420"));
         memberRepository.saveAll(members);
 
         List<Reservation> reservations = new ArrayList<>();

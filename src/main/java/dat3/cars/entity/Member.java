@@ -32,7 +32,7 @@ public class Member extends UserWithRoles {
 
     private boolean approved;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member")
     List<Reservation> reservations;
 
     public Member(String user, String password, String email, String firstName,
@@ -43,6 +43,7 @@ public class Member extends UserWithRoles {
         this.street = street;
         this.city = city;
         this.zip = zip;
+        this.reservations = new ArrayList<>();
     }
 
     public void addReservation(Reservation reservation){

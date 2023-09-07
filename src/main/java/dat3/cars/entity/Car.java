@@ -31,7 +31,7 @@ public class Car extends AdminDetails {
     @Column(name = "max_discount")
     private int bestDiscount;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "car")
     private List<Reservation> reservations;
 
     public Car(String brand, String model, double pricePrDay, int bestDiscount) {

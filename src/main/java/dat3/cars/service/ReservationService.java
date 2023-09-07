@@ -30,13 +30,18 @@ public class ReservationService {
     }
 
     public ReservationResponse reserveCar(ReservationRequest body){
+        Member member = memberService.getMemberByUsername(body.getUsername());
+        Car car = carService.getCarById(body.getCarId());
         if(body.getReservationDate().isBefore(LocalDate.now())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Date in past not allowed");
         }
-        Member member = memberService.getMemberByUsername(body.getUsername());
-        Car car = carService.getCarById(body.getCarId());
+        for (Reservation reservation : carService.getCarById(body.getCarId()).getReservations()) {
+            if (reservation.getReservationDate().isEqual(body.getReservationDate())){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is already reserved that day");
+            }
+        }
         Reservation res = reservationRepository.save(new Reservation(car,member, body.getReservationDate()));
-        return  new ReservationResponse(res);
+        return new ReservationResponse(res);
     }
 
 }

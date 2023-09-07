@@ -1,5 +1,6 @@
 package dat3.cars.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +21,11 @@ public class Reservation extends AdminDetails{
     private int id;
 
     @ManyToOne
+    @JsonBackReference
     private Car car;
 
     @ManyToOne
+    @JsonBackReference
     private Member member;
 
     @Column(nullable = false)
