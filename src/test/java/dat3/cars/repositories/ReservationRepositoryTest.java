@@ -3,9 +3,6 @@ package dat3.cars.repositories;
 import dat3.cars.entity.Car;
 import dat3.cars.entity.Member;
 import dat3.cars.entity.Reservation;
-import dat3.cars.service.CarService;
-import dat3.cars.service.MemberService;
-import dat3.cars.service.ReservationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,17 +55,39 @@ class ReservationRepositoryTest {
     void testFindCarsByBrandAndModel(){
         String brand = "brand1";
         String model = "model1";
-        List<Reservation> reservations = reservationRepository.findAllByCarBrandAndModel(brand, model);
+        List<Reservation> reservations = reservationRepository.findByCarBrandAndModel(brand, model);
         assertEquals(1, reservations.size());
     }
 
     @Test
-    void findAllCarsWithNoReservation(){
+    void testFindAllCarsWithNoReservation(){
         Car c3 = new Car("brand3", "model3", 300, 30);
         carRepository.save(c3);
         List<Integer> carIds = reservationRepository.findCarsWithNoReservation();
         assertEquals(1, carIds.size());
 
         assertEquals("brand3", carRepository.findById(carIds.get(0)).get().getBrand());
+    }
+
+    @Test
+    void testFindMembersWithReservation(){
+        Member memberWithoutReservation = new Member("noRes", "noRes", "testEmail", "firstName1",
+                "lastName1", "street1", "city1", "1234");
+        memberRepository.save(memberWithoutReservation);
+        List<String> membersWithReservationUsernames = reservationRepository.findMembersWithReservationByUsername();
+        assertEquals(2, membersWithReservationUsernames.size());
+    }
+
+    @Test
+    void testFindReservationsByUsername(){
+        Reservation reservation3 = new Reservation(car1, member1, LocalDate.now().plusDays(2));
+        Reservation reservation4 = new Reservation(car1, member1, LocalDate.now().plusDays(3));
+        Reservation reservation5 = new Reservation(car1, member1, LocalDate.now().plusDays(4));
+        Reservation reservation6 = new Reservation(car1, member1, LocalDate.now().plusDays(5));
+        reservationRepository.saveAll(List.of(reservation3, reservation4, reservation5, reservation6));
+
+        List<Reservation> reservations = reservationRepository.findByUsername("user1");
+        assertEquals(5, reservations.size());
+
     }
 }

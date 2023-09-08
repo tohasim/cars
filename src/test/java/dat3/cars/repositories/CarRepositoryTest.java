@@ -58,4 +58,15 @@ class CarRepositoryTest {
         assertEquals(4, cars.size());
     }
 
+    @Test
+    void testGetAveragePricePrDay(){
+        double avgPrice = carRepository.findAveragePricePrDay();
+        double expectedAvgPrice = 0;
+        for (Car car : carRepository.findAll()) {
+            expectedAvgPrice += car.getPricePrDay();
+        }
+        expectedAvgPrice = expectedAvgPrice / carRepository.count();
+        assertEquals(expectedAvgPrice, avgPrice);
+    }
+
 }

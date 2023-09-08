@@ -14,4 +14,11 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
             nativeQuery = true
     )
     List<Car> findCarsByBestDiscount();
+
+    @Query(
+            value = "SELECT AVG(car.rental_price_day) FROM car",
+            nativeQuery = true
+    )
+    double findAveragePricePrDay();
+
 }
