@@ -45,4 +45,17 @@ class CarRepositoryTest {
         assertEquals(0, carRepository.count());
     }
 
+    @Test
+    void testFindAllCarsBestDiscount(){
+        Car bestDisc1 = new Car("bestDisc1", "model", 1000, 100);
+        Car bestDisc2 = new Car("bestDisc2", "model", 69420, 100);
+        Car bestDisc3 = new Car("bestDisc3", "model", 1020, 100);
+        Car bestDisc4 = new Car("bestDisc4", "model", 1234, 100);
+        carRepository.saveAll(List.of(bestDisc1, bestDisc2, bestDisc3, bestDisc4));
+
+        List<Car> cars = carRepository.findCarsByBestDiscount();
+
+        assertEquals(4, cars.size());
+    }
+
 }
