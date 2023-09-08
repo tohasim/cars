@@ -1,9 +1,6 @@
 package dat3.cars.service;
 
-import dat3.cars.dto.CarResponse;
-import dat3.cars.dto.MemberRequest;
-import dat3.cars.dto.ReservationRequest;
-import dat3.cars.dto.ReservationResponse;
+import dat3.cars.dto.*;
 import dat3.cars.entity.Car;
 import dat3.cars.entity.Member;
 import dat3.cars.entity.Reservation;
@@ -15,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReservationService {
@@ -35,13 +34,32 @@ public class ReservationService {
         if(body.getReservationDate().isBefore(LocalDate.now())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Date in past not allowed");
         }
-        for (Reservation reservation : carService.getCarById(body.getCarId()).getReservations()) {
+        List<Reservation> reservations = carService.getCarById(body.getCarId()).getReservations();
+        for (Reservation reservation : reservations) {
             if (reservation.getReservationDate().isEqual(body.getReservationDate())){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is already reserved that day");
             }
         }
         Reservation res = reservationRepository.save(new Reservation(car,member, body.getReservationDate()));
         return new ReservationResponse(res);
+    }
+
+    public List<CarResponse> findCarsWithNoReservation(){
+        List<Integer> carIds = reservationRepository.findCarsWithNoReservation();
+        List<CarResponse> returnList = new ArrayList<>();
+        for (Integer carId : carIds) {
+            returnList.add(carService.findById(carId));
+        }
+        return returnList;
+    }
+
+    public List<ReservationResponse> findReservationsByCar(CarRequest request){
+        List<Reservation> reservations = reservationRepository.findByCarBrandAndModel(request.getBrand(), request.getModel());
+        List<ReservationResponse> responses = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            responses.add(new ReservationResponse(reservation));
+        }
+        return responses;
     }
 
 }

@@ -1,5 +1,7 @@
 package dat3.cars.service;
 
+import dat3.cars.dto.CarRequest;
+import dat3.cars.dto.CarResponse;
 import dat3.cars.dto.ReservationRequest;
 import dat3.cars.dto.ReservationResponse;
 import dat3.cars.entity.Car;
@@ -117,4 +119,23 @@ class ReservationServiceTest {
         assertEquals("Date in past not allowed", exception.getReason());
     }
 
+    @Test
+    void testFindCarsWithNoReservationTest(){
+        Car car = new Car("noRes", "noRes", 100, 10);
+        carService.addCar(new CarRequest(car));
+        List<CarResponse> responses = reservationService.findCarsWithNoReservation();
+        assertEquals(1, responses.size());
+    }
+
+    @Test
+    void testFindReservationsByCar(){
+        CarRequest request = new CarRequest(car1);
+        Reservation reservation3 = new Reservation(car1, member1, LocalDate.now().plusDays(4));
+        Reservation reservation4 = new Reservation(car1, member1, LocalDate.now().plusDays(5));
+        Reservation reservation5 = new Reservation(car1, member1, LocalDate.now().plusDays(6));
+        reservationRepository.saveAll(List.of(reservation3, reservation4, reservation5));
+        List<ReservationResponse> responses = reservationService.findReservationsByCar(request);
+        assertEquals(4, responses.size());
+
+    }
 }
