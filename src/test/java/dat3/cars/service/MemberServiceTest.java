@@ -32,14 +32,14 @@ class MemberServiceTest {
 
     @Test
     void testGetMembersAllDetails() {
-        List<MemberResponse> memberResponseList = memberService.getMembers(true);
+        List<MemberResponse> memberResponseList = memberService.getMembers(true, true);
         assertEquals(2, memberResponseList.size(), "Expected 2 members");
         assertNotNull(memberResponseList.get(0).getEdited(), "Show that we get all details");
     }
 
     @Test
     void testGetMembersNoDetails() {
-        List<MemberResponse> memberResponseList = memberService.getMembers(false);
+        List<MemberResponse> memberResponseList = memberService.getMembers(false, true);
         assertEquals(2, memberResponseList.size(), "Expected 2 members");
         assertNull(memberResponseList.get(0).getEdited(), "Shows we don't get all details");
     }

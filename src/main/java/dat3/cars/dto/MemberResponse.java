@@ -44,7 +44,6 @@ public class MemberResponse {
         this.lastName = m.getLastName();
         this.city = m.getCity();
         this.zip = m.getZip();
-        this.reservations = getReservationResponses(m.getReservations());
         if (includeAll) {
             this.created = m.getCreated();
             this.edited = m.getEdited();
@@ -53,11 +52,11 @@ public class MemberResponse {
         }
     }
 
-    List<ReservationResponse> getReservationResponses(List<Reservation> reservations){
-        List<ReservationResponse> responseList = new ArrayList<>();
-        for (Reservation reservation : reservations) {
-            responseList.add(new ReservationResponse(reservation));
-        }
-        return responseList;
+    public MemberResponse(Member m, boolean includeAll, boolean includeReservations) {
+        this(m, includeAll);
+        if (includeReservations)
+            this.reservations=m.getReservations().stream().map(
+                    ReservationResponse::new).toList();
     }
+
 }

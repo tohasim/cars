@@ -20,11 +20,11 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public List<MemberResponse> getMembers(boolean includeAll) {
+    public List<MemberResponse> getMembers(boolean includeAll, boolean includeReservations) {
         List<Member> repositoryList = memberRepository.findAll();
         List<MemberResponse> responseList = new ArrayList<>();
         for (Member member : repositoryList) {
-            responseList.add(new MemberResponse(member, includeAll));
+            responseList.add(new MemberResponse(member, includeAll, includeReservations));
         }
         return responseList;
     }

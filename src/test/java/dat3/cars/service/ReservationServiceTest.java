@@ -69,7 +69,7 @@ class ReservationServiceTest {
     @Test
     void testReserveCarGoodPath() {
         int carId = carService.getCars(true).get(0).getId();
-        String username = memberService.getMembers(true).get(0).getUsername();
+        String username = memberService.getMembers(true, true).get(0).getUsername();
         ReservationRequest request = new ReservationRequest(LocalDate.now(), carId, username);
         ReservationResponse response = reservationService.reserveCar(request);
         assertEquals(carId, response.getCarId());
@@ -77,7 +77,7 @@ class ReservationServiceTest {
 
     @Test
     void testReserveCar_CarNotFound(){
-        String username = memberService.getMembers(true).get(0).getUsername();
+        String username = memberService.getMembers(true, true).get(0).getUsername();
         ReservationRequest request = new ReservationRequest(LocalDate.now(), 9999, username);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> reservationService.reserveCar(request)
