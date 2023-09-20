@@ -23,7 +23,7 @@ public class CarController {
     //Anonymous
     @GetMapping
     List<CarResponse> getCars(){
-        return carService.getCars(false);
+        return carService.getCars(true);
     }
 
     //Anonymous
