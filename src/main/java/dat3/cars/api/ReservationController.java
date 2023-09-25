@@ -23,7 +23,12 @@ public class ReservationController {
         ReservationResponse r = service.reserveCar(res);
         return r;
     }
-
+    //ADMIN
+    @GetMapping("/{userName}")
+    public List<ReservationResponse> getReservationsForUser(@PathVariable String userName){
+        List<ReservationResponse> res = service.getReservationsForUser(userName);
+        return res;
+    }
     @GetMapping("/carsWithNoReservations")
     List<CarResponse> getCarsWithNoReservations(){
         List<CarResponse> cars = service.findCarsWithNoReservation();

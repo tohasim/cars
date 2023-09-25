@@ -62,4 +62,12 @@ public class ReservationService {
         return responses;
     }
 
+    public List<ReservationResponse> getReservationsForUser(String userName) {
+        List<ReservationResponse> responses = new ArrayList<>();
+        List<Reservation> reservations = reservationRepository.findByUsername(userName);
+        for (Reservation reservation : reservations) {
+            responses.add(new ReservationResponse(reservation));
+        }
+        return responses;
+    }
 }
