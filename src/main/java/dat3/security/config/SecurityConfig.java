@@ -65,21 +65,48 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/auth/login")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/user-with-role")).permitAll() //Clients can create a user for themself
 
-            //This is for demo purposes only, and should be removed for a real system
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/demo/anonymous")).permitAll()
-
             //Allow index.html and everything else on root level. So make sure to put ALL your endpoints under /api
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET,"/*")).permitAll()
 
             .requestMatchers(mvcMatcherBuilder.pattern("/error")).permitAll()
 
             //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
-            .requestMatchers(mvcMatcherBuilder.pattern("/"), mvcMatcherBuilder.pattern("/**")).permitAll());
+            .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()
+            // ADMIN
+            .requestMatchers(
+                    /* cars */
+                    mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/cars"),
+                    mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/cars/{id}"),
+                    mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/cars/admin"),
+                    mvcMatcherBuilder.pattern(HttpMethod.DELETE,"/api/cars/{id}"),
+                    mvcMatcherBuilder.pattern(HttpMethod.PATCH,"/api/cars/best-discount/{id}/{value}"),
+                    /* members */
+                    mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/members/admin"),
+                    mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/members/{username}"),
+                    mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/members/{username}"),
+                    mvcMatcherBuilder.pattern(HttpMethod.PATCH, "/api/members/ranking/{username}/{value}"),
+                    mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/members/{username}")
+                    /* reservations */
+            ).hasAuthority("ADMIN")
+            // USER
+            .requestMatchers(
+                    mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/reservations")
+            ).hasAuthority("USER")
 
-            //This is for demo purposes only, and should be removed for a real system
-            //.requestMatchers(HttpMethod.GET, "/api/demouser/user-only").hasAuthority("USER")
-            // .requestMatchers(HttpMethod.GET, "/api/demouser/admin-only").hasAuthority("ADMIN")
-//            .anyRequest().authenticated());
+
+            // ANONYMOUS
+            .requestMatchers(
+                    /* cars */
+                    mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/cars"),
+                    mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/cars/{id}"),
+                    /* members */
+                    mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/members"),
+                    mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/members"),
+                    /* reservations */
+                    mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/{username}"),
+                    mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/carsWithNoReservations")
+            ).permitAll()
+            .anyRequest().authenticated());
 
     return http.build();
   }

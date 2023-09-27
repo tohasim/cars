@@ -23,6 +23,12 @@ public class CarController {
     //Anonymous
     @GetMapping
     List<CarResponse> getCars(){
+        return carService.getCars(false);
+    }
+
+    //Admin
+    @GetMapping("/admin")
+    List<CarResponse> getCarsAdmin(){
         return carService.getCars(true);
     }
 

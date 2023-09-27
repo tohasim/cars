@@ -18,8 +18,13 @@ class MemberController {
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
-
     //Admin only
+    @GetMapping("/admin")
+    List<MemberResponse> getMembersAdmin(){
+        return memberService.getMembers(true, true);
+    }
+
+    //Anonymous
     @GetMapping
     List<MemberResponse> getMembers(){
         return memberService.getMembers(false, true);

@@ -18,17 +18,20 @@ public class ReservationController {
         this.service = service;
     }
 
+    //user
     @PostMapping
     ReservationResponse makeReservation(@RequestBody ReservationRequest res){
         ReservationResponse r = service.reserveCar(res);
         return r;
     }
-    //ADMIN
+    //anonymous
     @GetMapping("/{userName}")
     public List<ReservationResponse> getReservationsForUser(@PathVariable String userName){
         List<ReservationResponse> res = service.getReservationsForUser(userName);
         return res;
     }
+
+    //anonymous
     @GetMapping("/carsWithNoReservations")
     List<CarResponse> getCarsWithNoReservations(){
         List<CarResponse> cars = service.findCarsWithNoReservation();
